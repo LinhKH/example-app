@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+Route::get('/', [StudentController::class, 'index'])->name('home');
+Route::post('store', [StudentController::class, 'store'])->name('store');
+
+Route::get('edit/{id}', [StudentController::class, 'edit'])->name('edit');
+Route::post('update/{id}', [StudentController::class, 'update'])->name('update');
+
+Route::get('delete/{id}', [StudentController::class, 'delete'])->name('delete');
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', LoginController::class)->middleware('guest');
